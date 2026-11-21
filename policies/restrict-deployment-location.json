@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "displayName": "Restrict deployment locations to East US 2 and Central US",
+    "description": "Ensures resources are deployed only in East US 2 or Central US.",
+    "mode": "Indexed",
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "not": {
+          "field": "location",
+          "in": ["eastus2", "centralus"]
+        }
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+  }
+}

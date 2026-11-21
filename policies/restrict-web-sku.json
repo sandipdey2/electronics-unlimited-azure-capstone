@@ -1,0 +1,27 @@
+{
+  "properties": {
+    "displayName": "Limit Web Server Farm SKUs to B1 and P0V3",
+    "description": "Restricts App Service Plan SKUs to B1 and P0V3 only.",
+    "mode": "Indexed",
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Web/serverfarms"
+          },
+          {
+            "not": {
+              "field": "Microsoft.Web/serverfarms/sku.name",
+              "in": ["B1", "P0V3"]
+            }
+          }
+        ]
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+  }
+}

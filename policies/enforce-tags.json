@@ -1,0 +1,42 @@
+{
+  "properties": {
+    "displayName": "Require Department and Environment tags",
+    "description": "Enforces Department and Environment tags on all resources. Assign twice with different allowed values.",
+    "mode": "Indexed",
+    "parameters": {
+      "departmentAllowedValues": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Allowed Department values",
+          "description": "List of allowed values for the Department tag"
+        },
+        "defaultValue": ["Finance", "Engineering"]
+      },
+      "environmentAllowedValues": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Allowed Environment values",
+          "description": "List of allowed values for the Environment tag"
+        },
+        "defaultValue": ["Dev", "Test", "Prod"]
+      }
+    },
+    "policyRule": {
+      "if": {
+        "anyOf": [
+          {
+            "field": "tags['Department']",
+            "notIn": "[parameters('departmentAllowedValues')]"
+          },
+          {
+            "field": "tags['Environment']",
+            "notIn": "[parameters('environmentAllowedValues')]"
+          }
+        ]
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+  }
+}
